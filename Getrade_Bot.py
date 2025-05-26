@@ -119,7 +119,11 @@ async def finish(message: types.Message, state: FSMContext):
 dp.include_router(router)
 
 async def main():
-    await bot.delete_webhook(drop_pending_updates=True)
+    try:
+        await bot.delete_webhook(drop_pending_updates=True)
+    except Exception as e:
+        print("⚠️ Webhook удаление не удалось:", e)
+
     await dp.start_polling(bot)
 
 if __name__ == "__main__":
